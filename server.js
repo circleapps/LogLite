@@ -8,7 +8,7 @@ const db = new sqlite3.Database('logs.db', (err) => {
     }
     console.log("Connected to log.db");
 });
-db.run("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, timestamp DATETIME NOT NULL, CAT TEXT, MSG TEXT)");
+db.run("CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timestamp DATETIME NOT NULL, CAT TEXT, MSG TEXT)");
 
 // web server
 const app = express();
@@ -19,7 +19,7 @@ app.post('/log', (req, res) => {
     //const log = JSON.parse(req.body);
     const log = req.body;
 
-    db.run("INSERT INTO logs (timestamp, cat, msg) VALUES (?, ?, ?)", [timestamp, log.cat, log.msg], (err) => {
+    db.run("INSERT INTO log (timestamp, cat, msg) VALUES (?, ?, ?)", [timestamp, log.cat, log.msg], (err) => {
         if (err) {
             return res.status(500).json({error: "Failed to insert log:" + err.message});
         }
@@ -30,20 +30,22 @@ app.post('/log', (req, res) => {
 app.get('/log', (req, res) => {
     const {date, cat, msg} = req.query;
 
+    console.log("req.query.date:" + date);
+
     let sql = 'SELECT * FROM log';
     let params = [];
-    let first = false;
-    if (date || message || cat) {
+    let first = true;
+    if (date || msg || cat) {
         sql += ' WHERE';
         if (cat) {
             sql += ' cat = ?';
-            params.push(`%${cat}%`);
+            params.push(`${cat}`);
             first = false;
         }
         if (date) {
             if (!first) sql += ' AND';
-            sql += ' date(timestamp) = ?';
-            params.push(date);
+            sql += " date(timestamp) = ?";
+            params.push(`${date}`);
             first = false;
         }
         if (msg) {
@@ -54,8 +56,10 @@ app.get('/log', (req, res) => {
         }
     }
     db.all(sql, params, (err, rows) => {
+        console.log(sql);
+        console.log(params);
         if (err) {
-            return res.status(500).json({error: 'Failed to query log.'});
+            return res.status(500).json({error: 'Failed to query log:' + err.message});
         }
         return res.status(200).json({logs: rows});
     });
