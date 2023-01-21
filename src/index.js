@@ -1,7 +1,6 @@
-//import React, { Component } from 'react';
-//import axios from 'axios';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from "./App";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />, null, null);
-
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
