@@ -10,7 +10,7 @@ const postData = JSON.stringify({
 const options = {
   hostname: 'localhost',
   port: 3000,
-  path: '/',
+  path: '/log',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
