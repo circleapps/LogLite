@@ -1,18 +1,29 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 
+///////////////////////////////////////////////////////////////////////////////
 // database
+///////////////////////////////////////////////////////////////////////////////
+
 const db = new sqlite3.Database('logs.db', (err) => {
     if (err) {
         console.error(err.message);
     }
     console.log("Connected to log.db");
 });
-db.run("CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timestamp DATETIME NOT NULL, CAT TEXT, MSG TEXT)");
+db.run("CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timestamp DATETIME NOT NULL, cat TEXT, msg TEXT)");
 
+///////////////////////////////////////////////////////////////////////////////
 // web server
+///////////////////////////////////////////////////////////////////////////////
+
 const app = express();
 app.use(express.json());
+
+// map client files to public directory
+app.use(express.static('public'));
+
+// REST Services
 app.post('/log', (req, res) => {
     const timestamp = new Date().toISOString();
     console.log(req.body);
