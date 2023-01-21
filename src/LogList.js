@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Table from 'react-bootstrap/Table';
+
 
 class LogList extends Component {
     constructor(props) {
@@ -23,13 +25,29 @@ class LogList extends Component {
     render() {
         const {logs} = this.state;
         return (
-            <ul> 
-            {
-                logs.map((log,i)=> (
-                    <li key={i}> { `${log.timestamp} ${log.cat} ${log.msg}` } </li>
-                ))
-            }
-            </ul>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        logs.map((log,i)=> (
+                            <tr key={i}>
+                                <td>{log.id}</td>
+                                <td>{log.timestamp}</td>
+                                <td>{log.cat}</td>
+                                <td>{log.msg}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </Table>
+            
         );
 
     }
