@@ -1,3 +1,4 @@
 node_modules/
 .gitignore
 logs.db
+public/index.js
