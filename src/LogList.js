@@ -21,21 +21,17 @@ class LogList extends Component {
     }
 
     render() {
-        console.log(this.state.logs.length)
-        const logs = this.state.logs;
-        return React.createElement(
-                "ul",
-                null,
-                logs.map((log,i)=>
-                {
-                    console.log(log);
-                    return React.createElement(
-                        "li",
-                        {key:i},
-                        `${log.timestamp} ${log.cat} ${log.msg}`
-                    );
-                })
-            );
+        const {logs} = this.state;
+        return (
+            <ul> 
+            {
+                logs.map((log,i)=> (
+                    <li key={i}> { `${log.timestamp} ${log.cat} ${log.msg}` } </li>
+                ))
+            }
+            </ul>
+        );
+
     }
 }
 
