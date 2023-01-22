@@ -27,6 +27,14 @@ export default class App extends Component {
          this.forceUpdate();
     }
 
+    onClickClear = (query) => {
+         console.log('clicked clear')
+         this.state = this.setState ({
+            query: query
+         });
+         this.forceUpdate();
+    }
+
     render = () =>
     {
         return (
@@ -37,7 +45,7 @@ export default class App extends Component {
                     backgroundColor: 'white'
                 }}>
                 <h1> LogLite </h1>
-                <SearchBox onClickSearch={this.onClickSearch}/>
+                <SearchBox onClickSearch={this.onClickSearch} onClickClear={this.onClickClear} />
                 <LogList query={this.state.query}/>
             </Box>
         )

@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function SearchBox({onClickSearch}) {
+export default function SearchBox({onClickSearch, onClickClear}) {
     const [date, setDate] = React.useState(null);
     const [category, setCategory] = React.useState(null);
     const [message, setMessage] = React.useState(null);
@@ -22,7 +22,21 @@ export default function SearchBox({onClickSearch}) {
             category: category,
             message: message
         });
+
     }
+
+    function onClear() {
+        setDate(null);
+        setCategory("");
+        setMessage("");
+
+        onClickClear({
+            date: "",
+            category: "",
+            message: ""
+        });
+    }
+
     return (
         <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }} noValidate autoComplete="off" >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -48,6 +62,7 @@ export default function SearchBox({onClickSearch}) {
                 }}
             />
             <Button variant="contained" onClick={onSearch}> Search</Button> 
+            <Button variant="contained" onClick={onClear}> Clear</Button> 
         </Box>
     )
 }
