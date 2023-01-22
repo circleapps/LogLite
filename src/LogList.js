@@ -48,8 +48,8 @@ export default class LogList extends Component {
                             <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
                                 <TableCell>{log.id}</TableCell>
                                 <TableCell>{log.timestamp}</TableCell>
-                                <TableCell>{log.cat}</TableCell>
-                                <TableCell>{log.msg.substr(0,30)}</TableCell>
+                                <TableCell>{log.category}</TableCell>
+                                <TableCell>{log.message.substr(0,30)}</TableCell>
                             </TableRow>
                         ))
                     }

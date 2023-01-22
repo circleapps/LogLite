@@ -9,9 +9,9 @@ const db = new sqlite3.Database('logs.db', (err) => {
     if (err) {
         console.error(err.message);
     }
-    console.log("Connected to log.db");
+    console.log("Connected to logs.db");
 });
-db.run("CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timestamp DATETIME NOT NULL, cat TEXT, msg TEXT)");
+db.run("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, timestamp DATETIME NOT NULL, category TEXT, message TEXT)");
 
 ///////////////////////////////////////////////////////////////////////////////
 // web server
@@ -30,7 +30,7 @@ app.post('/log', (req, res) => {
     //const log = JSON.parse(req.body);
     const log = req.body;
 
-    db.run("INSERT INTO log (timestamp, cat, msg) VALUES (?, ?, ?)", [timestamp, log.cat, log.msg], (err) => {
+    db.run("INSERT INTO logs (timestamp, category, message) VALUES (?, ?, ?)", [timestamp, log.category, log.message], (err) => {
         if (err) {
             return res.status(500).json({error: "Failed to insert log:" + err.message});
         }
@@ -39,18 +39,18 @@ app.post('/log', (req, res) => {
 
 })
 app.get('/log', (req, res) => {
-    const {date, cat, msg} = req.query;
+    const {date, category, message} = req.query;
 
     console.log("req.query.date:" + date);
 
-    let sql = 'SELECT * FROM log';
+    let sql = 'SELECT * FROM logs';
     let params = [];
     let first = true;
-    if (date || msg || cat) {
+    if (date || message || category) {
         sql += ' WHERE';
-        if (cat) {
-            sql += ' cat = ?';
-            params.push(`${cat}`);
+        if (category) {
+            sql += ' category = ?';
+            params.push(`${category}`);
             first = false;
         }
         if (date) {
@@ -59,10 +59,10 @@ app.get('/log', (req, res) => {
             params.push(`${date}`);
             first = false;
         }
-        if (msg) {
+        if (message) {
             if (!first) sql += ' AND';
-            sql += ' msg LIKE ?';
-            params.push(`%${msg}%`);
+            sql += ' message LIKE ?';
+            params.push(`%${message}%`);
             first = false;
         }
     }

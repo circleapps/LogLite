@@ -3,8 +3,8 @@ const http = require('http');
 const querystring = require('querystring');
 
 const postData = JSON.stringify({
-    cat: "Temp",
-    msg: "Hello You"
+    category: "Game",
+    message: "Game Inited"
 });
 
 const options = {
