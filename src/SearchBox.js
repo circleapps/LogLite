@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -61,6 +62,7 @@ export default function SearchBox({onClickSearch, onClickClear}) {
                     setMessage(e.target.value);
                 }}
             />
+            <Divider />
             <Button variant="contained" onClick={onSearch}> Search</Button> 
             <Button variant="contained" onClick={onClear}> Clear</Button> 
         </Box>

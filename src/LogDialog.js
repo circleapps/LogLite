@@ -4,7 +4,19 @@ import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
 
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 export default function LogDialog(props) {
     const { onClose, selectedValue, open, log } = props;
@@ -20,15 +32,27 @@ export default function LogDialog(props) {
     return (
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>View Log</DialogTitle>
-            <Box sx={{
-                    width: "300",
-                    margin: 3
-                }}>
-                <h1> Log #{log.id} </h1>
-                <h1> Time {log.timestamp} </h1>
-                <h1> Category {log.category} </h1>
-                <h1> Message {log.message} </h1>
-            </Box>
+            <Stack spacing={2}
+                sx = {{
+                }}
+                 >
+                <Item>
+                    <TextField id="txtId" label="Id" variant="standard" value={log.id} />
+                </Item>
+                <Item>
+                    <TextField label="Time" variant="standard" value={log.timestamp} />
+                </Item>
+                <Item>
+                    <TextField label="Category" variant="standard" value={log.category} />
+                </Item>
+                <Item>
+                    <TextField fullWidth={true} label="Message" variant="standard" multiline={true} minRows={30} rows={30} value={log.message} 
+                     sx = {{
+                        width: 600
+                    }}
+                    />
+                </Item>
+            </Stack>
         </Dialog>
     );
 }
