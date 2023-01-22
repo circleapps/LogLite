@@ -71,6 +71,11 @@ export default class LogList extends Component {
         if (prevProps.query != this.props.query) this.retrieveData();
     }
 
+    onClickRow = (log)  =>
+    {
+        this.props.onClickRow(log);
+    }
+
     render() {
         const {logs} = this.state;
         return (
@@ -87,7 +92,7 @@ export default class LogList extends Component {
                     <TableBody>
                     {
                         logs.map((log,i)=> (
-                            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} onClick={(e)=> {this.onClickRow(log)}} >
                                 <TableCell>{log.id}</TableCell>
                                 <TableCell>{log.timestamp}</TableCell>
                                 <TableCell>{log.category}</TableCell>
