@@ -17,7 +17,14 @@ export default class App extends Component {
                 category: "",
                 message: ""
             },
-            open: false
+            open: false,
+            selectedLog:
+            {
+                id: 0,
+                message: "",
+                category: "",
+                timestamp: ""
+            }
         };
     }
 
@@ -43,9 +50,10 @@ export default class App extends Component {
         })
     }
 
-    onClickLog = (Log) => {
+    onClickLog = (log) => {
         this.setState({
-            open: true
+            open: true,
+            selectedLog: log
         })
     }
 
@@ -61,6 +69,7 @@ export default class App extends Component {
                 <SearchBox onClickSearch={this.onClickSearch} onClickClear={this.onClickClear} />
                 <LogList query={this.state.query} onClickRow={this.onClickLog} />
                 <LogDialog open={this.state.open}
+                    log={this.state.selectedLog}
                     onClose={this.onCloseDialog}
                 />
             </Box>

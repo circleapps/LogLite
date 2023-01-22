@@ -73,6 +73,7 @@ export default class LogList extends Component {
 
     onClickRow = (log)  =>
     {
+        console.log("log:" + log);
         this.props.onClickRow(log);
     }
 
@@ -92,7 +93,7 @@ export default class LogList extends Component {
                     <TableBody>
                     {
                         logs.map((log,i)=> (
-                            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} onClick={(e)=> {this.onClickRow(log)}} >
+                            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} onClick={()=>this.onClickRow(log)} >
                                 <TableCell>{log.id}</TableCell>
                                 <TableCell>{log.timestamp}</TableCell>
                                 <TableCell>{log.category}</TableCell>
