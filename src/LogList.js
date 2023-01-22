@@ -39,7 +39,7 @@ export default class LogList extends Component {
                             <TableCell>#</TableCell>
                             <TableCell align="left">Timestamp</TableCell>
                             <TableCell align="left">Category</TableCell>
-                            <TableCell align="left">Log</TableCell>
+                            <TableCell align="left">Message</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

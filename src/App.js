@@ -7,6 +7,9 @@ import SearchBox from './SearchBox';
 
 
 export default function App() {
+    onClickSearch() {
+         console.log('clicked search')
+    }
     return (
         <Box
             sx={{
@@ -15,7 +18,7 @@ export default function App() {
                 backgroundColor: 'white'
             }}>
             <h1> LogLite </h1>
-            <SearchBox />
+            <SearchBox onClickSearch={onClickSearch}/>
             <LogList />
         </Box>
     )
