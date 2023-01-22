@@ -25,12 +25,10 @@ app.use(express.static('public'));
 
 // REST Services
 app.post('/log', (req, res) => {
-    const timestamp = new Date().toISOString();
     console.log(req.body);
-    //const log = JSON.parse(req.body);
     const log = req.body;
 
-    db.run("INSERT INTO logs (timestamp, category, message) VALUES (?, ?, ?)", [timestamp, log.category, log.message], (err) => {
+    db.run("INSERT INTO logs (timestamp, category, message) VALUES (?, ?, ?)", [log.timestamp, log.category, log.message], (err) => {
         if (err) {
             return res.status(500).json({error: "Failed to insert log:" + err.message});
         }

@@ -18,8 +18,41 @@ export default class LogList extends Component {
         };
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:3000/log')
+    getParams = () => {
+        const {query} = this.props;
+        console.log(query.category);
+        console.log(query.message);
+        var queryString = "";
+        var first = true;
+        if (query.date) {
+            var tzOffset = (new Date()).getTimezoneOffset() * 60000;
+            var localDate = new Date(query.date.toDate() - tzOffset);
+            queryString += "date=" + localDate.toISOString().split('T')[0];
+            first = false;
+        }
+        if (query.message) {
+            if (first) {
+                first = false;
+            } else {
+                queryString += "&";
+            }
+            queryString += "message=" + query.message;
+        }
+        if (query.category) {
+            if (first) {
+                first = false;
+            } else {
+                queryString += "&";
+            }
+            queryString += "category=" + query.category;
+        }
+        console.log(queryString);
+        return queryString;
+    }
+
+    retrieveData = () => {
+        const params = this.getParams(); 
+        axios.get('http://localhost:3000/log?' + params)
             .then(res => {
                 const logs = res.data.logs;
                 this.setState({logs});
@@ -27,6 +60,15 @@ export default class LogList extends Component {
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    componentDidMount() {
+        this.retrieveData();
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.query != this.props.query) this.retrieveData();
     }
 
     render() {
