@@ -18,7 +18,7 @@ db.run("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, timestamp DATET
 ///////////////////////////////////////////////////////////////////////////////
 
 const app = express();
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 
 // map client files to public directory
 app.use(express.static('public'));
@@ -26,9 +26,11 @@ app.use(express.static('public'));
 // REST Services
 app.post('/log', (req, res) => {
     console.log(req.body);
-    const log = req.body;
+    const log = req.body; 
 
-    db.run("INSERT INTO logs (timestamp, category, message) VALUES (?, ?, ?)", [log.timestamp, log.category, log.message], (err) => {
+    const message = log.message ? log.message.slice(-1024*100) : "";
+
+    db.run("INSERT INTO logs (timestamp, category, message) VALUES (?, ?, ?)", [log.timestamp, log.category, message], (err) => {
         if (err) {
             return res.status(500).json({error: "Failed to insert log:" + err.message});
         }

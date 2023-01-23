@@ -1,6 +1,8 @@
 
 const http = require('http');
-const querystring = require('querystring');
+const fs = require('fs')
+
+const fileContents = fs.readFileSync('./test.log').toString();
 
 
 var tzOffset = (new Date()).getTimezoneOffset() * 60000;
@@ -9,7 +11,7 @@ var localISOTime = new Date(Date.now() - tzOffset).toISOString();
 const postData = JSON.stringify({
     timestamp: localISOTime,
     category: "Game",
-    message: "Game Inited"
+    message: fileContents
 });
 
 const options = {
