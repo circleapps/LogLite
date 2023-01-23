@@ -19,3 +19,20 @@ Please check package.json for other dependencies.
 
 * View Log
 ![image](https://user-images.githubusercontent.com/44904628/213971718-16fc9604-2ea5-475c-95e8-655f2f7f9be6.png)
+
+
+# Installation and Testing
+
+* Install
+`npm install`
+
+* Build
+`npm run build`
+
+* Start server
+`npm run start`
+
+* Test Send Post
+`node test_post_log.js`
+
+
