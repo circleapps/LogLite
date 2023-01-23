@@ -35,4 +35,7 @@ Please check package.json for other dependencies.
 * Test Send Post
 `node test_post_log.js`
 
+* Try the web end
+http://localhost:3000
+
 
