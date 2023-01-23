@@ -18,7 +18,7 @@ db.run("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, timestamp DATET
 ///////////////////////////////////////////////////////////////////////////////
 
 const app = express();
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({limit: '1mb'}));
 
 // map client files to public directory
 app.use(express.static('public'));

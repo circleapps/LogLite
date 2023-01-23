@@ -26,9 +26,16 @@ export default function LogDialog(props) {
     };
 
     return (
-        <Dialog onClose={handleClose} open={open}>
+        <Dialog onClose={handleClose} open={open} maxWidth={1200}>
             <DialogTitle>View Log</DialogTitle>
-            <DialogContent>
+            <DialogContent
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                m: 'auto',
+                width: 'fit-content',
+            }}
+            >
                 <TextField label="ID" variant="standard" value={"#" + log.id} 
                     sx = {{ width: 550, paddingBottom:3 }}
                  />
@@ -38,8 +45,8 @@ export default function LogDialog(props) {
                 <TextField label="Category" variant="standard" value={log.category} 
                     sx = {{ width: 550, paddingBottom:3 }}
                 />
-                <TextField label="Message" variant="standard" multiline={true} value={log.message} minRows={32}
-                    sx = {{ width: 550, paddingBottom:3 }}
+                <TextField label="Message" variant="standard" multiline={true} value={log.message} rows={25} minRows={25}
+                    sx = {{ width: 850, paddingBottom:3 }}
                 />
             </DialogContent>
         </Dialog>
